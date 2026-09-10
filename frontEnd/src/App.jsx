@@ -1,14 +1,13 @@
 
 import './App.css'
-
-import MovieCard from './Components/MovieCard'
-
+import Home from "./pages/Home"
 function App() {
 
+  const movieNumber = 2;
   return (
+
     <>
-      <MovieCard movie = {{title: "Tim's Film", release_date: "2024"}}></MovieCard>
-      <MovieCard movie = {{title: "Joe's Film", release_date: "2023"}}></MovieCard>
+      <Home></Home>
     </>
   );
 }
