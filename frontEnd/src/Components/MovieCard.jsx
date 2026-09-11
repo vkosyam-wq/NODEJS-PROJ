@@ -1,15 +1,17 @@
+import "../css/MovieCard.css"
+
 function MovieCard({movie}){
 
     function clickerFunction(){
         alert("clicked");
     }
     
-        return (
+        return ( 
             <>
                 <div className="movie-card">
                     <div className="movie-poster">
                         <img src={movie.url} alt={movie.title}></img>
-                        <div className="overLay">
+                        <div className="overlay">
 
                             <button className="favorite-btn" onClick={clickerFunction}>♥</button>
                         </div>
