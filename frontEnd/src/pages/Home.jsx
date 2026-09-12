@@ -1,19 +1,49 @@
 import MovieCard from "../Components/MovieCard";
-import {useState} from "react";
+import {useState,useEffect} from "react";
+import{ getPopularMovies,searchMovies } from "../services/api";
 import "../css/Home.css"
 function Home(){
     
-    const movies =[
-        {id: 1, title: "First Movie", release_date: "2020"},
-        {id: 2, title: "Second Movie", release_date: "2018"},
-        {id: 3, title: "Third Movie", release_date: "2015"}
-    ];
-
-    const[searchQ,setSearchQ] = useState("");
     
 
+    const[searchQ,setSearchQ] = useState("");
+    const[movies,setMovies] = useState([]);
+    const[error,setError] = useState(null);
+    const[loading,setLoading] = useState(true);
 
-  
+    
+
+    useEffect(() =>{
+        const loadPopularMovies = async () =>{
+            try{
+
+                const popularMovies = await getPopularMovies();
+                setMovies(popularMovies);
+            }
+            catch(err)
+            {
+                console.log(err);
+                setError("An error occured");
+
+            }
+            finally{
+                setLoading(false);
+
+
+            }
+
+        }
+        loadPopularMovies();
+        
+    }, [])
+
+
+    const handleSearch = (e) =>
+    {
+        e.preventDefault();
+        alert(searchQ);
+        setSearchQ("");
+    }
 
     return (
 
@@ -21,14 +51,14 @@ function Home(){
 
         
         <div className="home">
-            <form className="search-form">
+            <form onsubmit={handleSearch} className="search-form">
                 <input
                 
                 type="text"
                 className="search-input"
                 placeHolder="search Movie"
                 value={searchQ}
-                onChange={(e) => {setSearchQ(e.target.value)}}/>
+                onChange={(e) => setSearchQ(e.target.value)} />
                 <button className="search-button" type="submit">Submit</button>
             </form>
             
